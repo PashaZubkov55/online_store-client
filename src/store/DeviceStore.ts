@@ -1,8 +1,9 @@
-import { makeAutoObservable } from "mobx"
 import { Ibrands, Idevices, Itypes } from "../utils/interface"
-
+import { makeAutoObservable } from "mobx"
 
 export  class DeviceStore{
+   
+      
    _types :Array<Itypes>=[
     {
     id: 1,
@@ -38,8 +39,11 @@ export  class DeviceStore{
         rating:5,
         img:'https://diamondelectric.ru/images/4293/4292017/smartfon_honor_x8_14.jpg'
     }
-
-  ]
+]
+constructor(){
+    makeAutoObservable(this)
+   } 
+ 
 setTypes(types:any){
     this._types = types
 }
@@ -60,8 +64,6 @@ dsetDevices(devices:any){
     get devices(){
         return this._devices
     }
-   constructor(){
-    makeAutoObservable(this)
-   } 
+ 
 
 }
