@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { SHOP_ROTE } from '../utils/constants';
+import { LOGIN_ROUTE, SHOP_ROTE } from '../utils/constants';
 import { Button } from 'react-bootstrap';
 import { user } from '../utils/ObjectStore';
 import { observer } from 'mobx-react-lite';
@@ -25,7 +25,10 @@ export const NavBar= observer(()=>{
             </Nav>:
 
             <Nav className="ml-auto">
-            <Button>Авторизация </Button>
+            <Button>
+              <NavLink to={LOGIN_ROUTE} className="text-decoration-none text-white">  Авторизация</NavLink>
+            
+              </Button>
             
 
           </Nav>
