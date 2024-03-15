@@ -8,7 +8,15 @@ export  class DeviceStore{
     {
     id: 1,
     name: 'холодильники'
-  }
+  },
+  {
+    id: 2,
+    name: 'смартфоны'
+  },
+  {
+    id: 3,
+    name: 'айфоны'
+  },
 ]
   _brands: Array<Ibrands>=[
     {
