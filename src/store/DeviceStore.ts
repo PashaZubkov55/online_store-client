@@ -48,6 +48,7 @@ export  class DeviceStore{
         img:'https://diamondelectric.ru/images/4293/4292017/smartfon_honor_x8_14.jpg'
     }
 ]
+_selectedType = {}
 constructor(){
     makeAutoObservable(this)
    } 
@@ -63,6 +64,9 @@ setBrands(brands:any){
 dsetDevices(devices:any){
      this._devices = devices
 }
+setSelectedType (type:any){
+    this._selectedType = type
+}
   get types(){
     return this._types
 }
@@ -71,6 +75,10 @@ dsetDevices(devices:any){
     }
     get devices(){
         return this._devices
+    }
+    get selectedType(){
+        return this._selectedType
+
     }
  
 

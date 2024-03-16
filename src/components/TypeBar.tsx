@@ -9,11 +9,17 @@ import { device } from '../utils/ObjectStore';
     return (
         <>
          <ListGroup >
-        {device.types.map(type=>{
-            return  <ListGroup.Item key={type.id}>
+        {device.types.map(type=>
+          <ListGroup.Item
+            className='cursor-pointer'
+            key={type.id}
+            active={type.id === device.selectedType.id} 
+            onClick={()=>{device.setSelectedType(type)}}
+            
+            >
                 {type.name}
             </ListGroup.Item>
-        })}
+        )}
       
     </ListGroup>
       </>
