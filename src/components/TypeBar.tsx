@@ -7,11 +7,12 @@ import { device } from '../utils/ObjectStore';
  export const TypeBar  = observer( ()=>{
     
     return (
-        <>
-         <ListGroup >
+        
+         <ListGroup  >
         {device.types.map(type=>
           <ListGroup.Item
-            className='cursor-pointer'
+        
+            className='cursor-pointer '
             key={type.id}
             active={type.id === device.selectedType.id} 
             onClick={()=>{device.setSelectedType(type)}}
@@ -22,6 +23,6 @@ import { device } from '../utils/ObjectStore';
         )}
       
     </ListGroup>
-      </>
+      
     )
 })

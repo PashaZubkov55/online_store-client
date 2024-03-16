@@ -22,7 +22,19 @@ export  class DeviceStore{
     {
     id: 1,
     name: 'honor'
-    }
+    },
+    {
+      id: 2,
+      name: 'sunsung'
+      },
+      {
+        id: 3,
+        name: 'linovo'
+        },
+        {
+          id: 4,
+          name: 'huawei'
+          },
 ]
 
   _devices: Array<Idevices>=[
@@ -49,6 +61,7 @@ export  class DeviceStore{
     }
 ]
 _selectedType = {}
+_selectedBrand = {}
 constructor(){
     makeAutoObservable(this)
    } 
@@ -61,11 +74,14 @@ setBrands(brands:any){
     this._brands = brands
 }
 
-dsetDevices(devices:any){
+setDevices(devices:any){
      this._devices = devices
 }
 setSelectedType (type:any){
     this._selectedType = type
+}
+setSelectedBrand (brand:any){
+  this._selectedBrand = brand
 }
   get types(){
     return this._types
@@ -79,6 +95,9 @@ setSelectedType (type:any){
     get selectedType(){
         return this._selectedType
 
+    }
+    get selectedBrand(){
+      return this._selectedBrand
     }
  
 
