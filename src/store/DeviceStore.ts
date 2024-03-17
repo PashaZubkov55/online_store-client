@@ -50,15 +50,17 @@ export  class DeviceStore{
         name:'x7',
         price:10000,
         rating:5,
-        img:'https://ae04.alicdn.com/kf/S33f31cf6a3714c7a81ec91e9beb66f1b2/HONOR-X7-Android-11-90-5-7-FullView.jpg_640x640.jpg'
+        img:'https://vega.am/image/cache/catalog/1HRACH/2020/2021/2022/Hulis/Smart%20Heraxosnner/HONOR%20X7%20CMA-LX1%204GB%20128GB%20(BL)-2000x1500.jpg'
     },
     {
-        id:1,
+        id:3,
         name:'x8',
         price:10000,
         rating:5,
         img:'https://diamondelectric.ru/images/4293/4292017/smartfon_honor_x8_14.jpg'
-    }
+    },
+  
+
 ]
 _selectedType = {}
 _selectedBrand = {}
