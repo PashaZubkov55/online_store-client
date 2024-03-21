@@ -1,9 +1,13 @@
 import { Card, Col, Image, NavItem } from "react-bootstrap";
 import { Idevices } from "../utils/interface";
+import { useNavigate } from "react-router-dom";
+import { DEVICE_ROUTE } from "../utils/constants";
+
 
   const DeviceComponent = ({item<Idevices>})=>{
+    const navigate = useNavigate()
     return(
-        <Col md={3} className="mt-3">
+        <Col md={3} className="mt-3" onClick={(()=> navigate(DEVICE_ROUTE + '/'+ item.id))}>
             <Card className="w-15  cursor-pointer ">
                <Image className="mt-2" width={150} height={150} src={item.img} />
                 <div className=" ms-1 d-flex justify-content-between align-items-center">
