@@ -9,3 +9,7 @@
     cursor: pointer;
 
 }
+.device__rating{
+    background: url('./assets/img/Star1.png') no-repeat center;
+    
+}
