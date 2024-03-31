@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { DEVICE_ROUTE } from "../utils/constants";
 
 
-  const DeviceComponent = ({item<Idevices>})=>{
+  const DeviceComponent = ({item})=>{
     const navigate = useNavigate()
     return(
         <Col md={3} className="mt-3" onClick={(()=> navigate(DEVICE_ROUTE + '/'+ item.id))}>
