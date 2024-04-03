@@ -14,7 +14,7 @@ export  class UserStore{
     }
  
    setAuth(val:boolean){
-    this._isAuth = val
+    this._isAuth = false
    }
    setUser(user:object){
     this._user = user
