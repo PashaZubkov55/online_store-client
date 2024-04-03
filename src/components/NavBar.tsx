@@ -27,8 +27,11 @@ export const NavBar= observer(()=>{
             </Nav>:
 
             <Nav className="ml-auto">
-            <Button>Авторизация </Button>
-          
+            <Button>
+              <NavLink to={LOGIN_ROUTE} className="text-decoration-none text-white">  Авторизация</NavLink>
+            
+              </Button>
+            
 
           </Nav>
 }
