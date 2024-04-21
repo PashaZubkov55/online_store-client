@@ -5,26 +5,13 @@ import Form from 'react-bootstrap/Form';
 import { NavLink, useLocation } from 'react-router-dom';
 import { login, registration } from '../http/userAPI';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
-
- 
-
 const Auth = ()=>{
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
-
-    const [email, setEmail] = useState('')
-   const [password, setPassword] = useState('')
-     const  emailChange = (event:any)=>{
-      setEmail(
-        event.target.value
-      )
-      const  passwordChange = (event:any)=>{
-        setPassword(
-          event.target.value
-        )
-
-     }
-    const auth =  async ()=>{
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+    const signIn =  async (event:any)=>{
+      event.preventDefault();
       let response = ''
       if (isLogin) {
          response = await login(email, password)
@@ -43,11 +30,7 @@ const Auth = ()=>{
         <h2>Войти</h2>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Почта</Form.Label>
-          <Form.Control 
-          type="email" 
-          placeholder="Enter email" 
-          value={email} 
-          onChange={emailChange}  />
+          <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e:any)=> setEmail( e.target.value)}/>
           <Form.Text className="text-muted">
             Здесь будет сообщение !
           </Form.Text>
@@ -55,19 +38,11 @@ const Auth = ()=>{
   
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Пароль</Form.Label>
-          <Form.Control 
-          type="password" 
-          placeholder="Password"  
-          value={password} 
-          onChange={passwordChange}  />
+          <Form.Control type="password" placeholder="Password" value={password} onChange={(e:any)=> setPassword( e.target.value)} />
           <div className='mt-3'> Нет акаунта ? <NavLink  className='text-decoration-none' to={REGISTRATION_ROUTE}>зарегистрируйтесь</NavLink></div>
         </Form.Group>
        
-        <Button variant="primary"
-         type="submit"
-         onclick={()=>{auth}}
-         
-         >
+        <Button variant="primary" type="submit" onClick={signIn}>
            Войти
         </Button>
       </Form>
@@ -77,7 +52,7 @@ const Auth = ()=>{
          <h2>Регистрация</h2>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Почта</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email"  value={email} onChange={(e:any)=> setEmail( e.target.value)}/>
         <Form.Text className="text-muted">
           Здесь будет сообщение !
         </Form.Text>
@@ -85,10 +60,10 @@ const Auth = ()=>{
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Пароль</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Password" value={password} onChange={(e:any)=> setPassword( e.target.value)} />
         <div className='mt-3'> Зарегистрированы ? <NavLink  className='text-decoration-none' to={LOGIN_ROUTE}>Войти</NavLink></div>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" onClick={signIn}>
          Регистрация
       </Button>
     </Form>
@@ -96,7 +71,6 @@ const Auth = ()=>{
 }
       </Container>
     )
-}
 }
 
 export default Auth
