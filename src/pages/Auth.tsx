@@ -41,7 +41,7 @@ const Auth = ()=>{
         <h2>Войти</h2>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Почта</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" 
+          <Form.Control type="email" placeholder="Email" 
           {...register('email', {
             required: 'Поле обязательное !',
             pattern:{
@@ -58,7 +58,7 @@ const Auth = ()=>{
   
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Пароль</Form.Label>
-          <Form.Control type="password" placeholder="Password" 
+          <Form.Control type="password" placeholder="Пароль" 
            {...register('password',{
             required:'поле обязательно !',
             minLength: {
@@ -83,9 +83,25 @@ const Auth = ()=>{
       :
       <Form onSubmit={handleSubmit(signIn)}>
       <h2>Регистрация</h2>
+
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Имя</Form.Label>
+        <Form.Control type="email" placeholder="Имя" 
+        {...register('firstName', {
+          required: 'Поле обязательное !',
+         
+         })}
+        />
+        <Form.Text className="text-muted text-danger">
+          {errors?.firstName && <p className='text-danger'>{errors?.firstName?.message} </p>}
+        </Form.Text>
+        
+      </Form.Group>
+
+
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Почта</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" 
+        <Form.Control type="email" placeholder="Email" 
         {...register('email', {
           required: 'Поле обязательное !',
           pattern:{
@@ -103,7 +119,7 @@ const Auth = ()=>{
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Пароль</Form.Label>
-        <Form.Control type="password" placeholder="Password" 
+        <Form.Control type="password" placeholder="Пароль" 
          {...register('password',{
           required:'поле обязательно !',
           minLength: {
