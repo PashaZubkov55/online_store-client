@@ -44,6 +44,10 @@ const Auth = ()=>{
           <Form.Control type="email" placeholder="Enter email" 
           {...register('email', {
             required: 'Поле обязательное !',
+            pattern:{
+              value:/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+              message: 'Неверный Формат Email !'
+          }
 
            })}
           />
@@ -84,6 +88,10 @@ const Auth = ()=>{
         <Form.Control type="email" placeholder="Enter email" 
         {...register('email', {
           required: 'Поле обязательное !',
+          pattern:{
+            value:/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+            message: 'Неверный Формат Email !'
+        }
 
          })}
         />
