@@ -20,9 +20,9 @@ const Auth = ()=>{
     handleSubmit,
 
   } = useForm()
-    const signIn =  async (event :any,data:any)=>{
-       event.preventDefault()
-     //console.log(data)
+    const signIn =  async (data:any)=>{
+     
+     console.log(data)
       let response = ''
       if (isLogin) {
          response = await login(data.email, data.password)
@@ -84,19 +84,7 @@ const Auth = ()=>{
       <Form onSubmit={handleSubmit(signIn)}>
       <h2>Регистрация</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Имя</Form.Label>
-        <Form.Control type="email" placeholder="Имя" 
-        {...register('firstName', {
-          required: 'Поле обязательное !',
-         
-         })}
-        />
-        <Form.Text className="text-muted text-danger">
-          {errors?.firstName && <p className='text-danger'>{errors?.firstName?.message} </p>}
-        </Form.Text>
-        
-      </Form.Group>
+     
 
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
