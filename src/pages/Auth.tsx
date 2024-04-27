@@ -4,10 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form'
 import { NavLink, useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { login, registration } from '../http/userAPI';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
-const Auth = ()=>{
-
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROTE } from '../utils/constants';
+import { user } from '../utils/ObjectStore';
+import { useNavigate } from 'react-router-dom';
+const Auth = observer( ()=>{
+    const navigate = useNavigate()
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
  // const [email, setEmail] = useState('')
@@ -16,19 +19,32 @@ const Auth = ()=>{
     register,
     formState:{
       errors
-    },
+    }, 
     handleSubmit,
 
   } = useForm()
     const signIn =  async (data:any)=>{
-     
-     console.log(data)
-      let response = ''
+      try {
+        let res :object = {}
       if (isLogin) {
-         response = await login(data.email, data.password)
+          res  = await login(data.email, data.password)
+          console.log(res)
         }
-        else{ response = await registration(data.email, data.password)}
-       console.log(response)
+        else{ 
+          res = await registration(data.email, data.password)
+          
+        }
+        user.setUser(res)
+       user.setAuth(true)
+       navigate(SHOP_ROTE)
+       
+        
+      } catch (e:any) {
+        alert(e.response.data.message)
+        
+      }
+     console.log(data)
+      
     }
     return(
         <Container 
@@ -137,5 +153,6 @@ const Auth = ()=>{
       </Container>
     )
 }
+)
 
 export default Auth
