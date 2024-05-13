@@ -13,11 +13,14 @@ let App  = observer(()=> {
  
 const[loading, setLoading] = useState(true)
 useEffect(()=>{
-check().then(data=>{
+ setTimeout(()=>{
+  check().then(data=>{
     user.setUser(true),
     user.setAuth(true)
 }).finally(()=>{setLoading(false)})
-},[])
+ },1000)
+},[]) 
+
 if (loading) {
   return  <div className='d-flex justify-content-center  align-items-center '
   style={{height: window.innerHeight -54}}
