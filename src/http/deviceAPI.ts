@@ -8,6 +8,15 @@ export const createType = async (type:Object) => {
 }
 
 export const fetchTypes = async()=>{
-    const {data} = $host.get('api/type')
+    const {data} =  await $host.get('api/type')
+    return data
+} 
+export const createBrand = async (brand:Object) => {
+    const {data} = await $authHost.post('api/brand', brand)
+    return data
+}
+
+export const fetchBrands = async()=>{
+    const {data} = await $authHost.get('api/brand')
     return data
 } 
