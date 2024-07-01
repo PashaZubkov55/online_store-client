@@ -20,3 +20,7 @@ export const fetchBrands = async()=>{
     const {data} = await $authHost.get('api/brand')
     return data
 } 
+export const createDevice = async (device: Object)=>{
+    const {data} = await $authHost.post('apo/device', device)
+    return data
+}

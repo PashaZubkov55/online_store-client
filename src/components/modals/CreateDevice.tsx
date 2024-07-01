@@ -7,8 +7,17 @@ import { useState } from 'react';
 import {  Col, Row } from "react-bootstrap";
 
 function CreateDevice ({show, onHide}) {
+  const [name, setnName] = useState('')
+  const [price, setPrice] = useState(0)
   const [info, setInfo] = useState([])
+  const [file, setFile] = useState(null)
+  const [brand, setBrand] = useState(null)
+  const [type, setType] = useState(null)
 
+
+const selectFile = (e) =>{
+console.log(e.target.files[0])
+} 
 
   const addInfo= ()=>{
     setInfo([...info, {title:'', description:' ', number:Date.now()}])
@@ -62,6 +71,7 @@ function CreateDevice ({show, onHide}) {
         <Form.Control 
       className= 'mt-3'
       type='file'
+      onChange= {selectFile}
       />
       <Button onClick={addInfo} className= 'mt-3' variant= 'outline-primary'>Добавить новое свойство</Button>
       {
