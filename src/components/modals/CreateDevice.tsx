@@ -26,6 +26,10 @@ console.log(e.target.files[0])
     setInfo(info.filter(item=>item.number !== number))
   }
 
+  const changeInfo= (key:never, value:never, number:never)=>{
+
+      setInfo(info.map(item=>item.number === number?{...item, [key]:value}: item))
+  }
 
 
   return (
@@ -47,7 +51,8 @@ console.log(e.target.files[0])
        Выбрать тип
       </Dropdown.Toggle>
       <Dropdown.Menu>
-       {device.types.map((type)=> <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>)}
+       {device.types.map((type)=> 
+       <Dropdown.Item onClick={device.setSelectedType(type)} key={type.id}>{type.name}</Dropdown.Item>)}
       </Dropdown.Menu>
       </Dropdown>
       <Dropdown className = 'mt-3'>
@@ -55,18 +60,23 @@ console.log(e.target.files[0])
        Выбрать бранд
       </Dropdown.Toggle>
       <Dropdown.Menu>
-       {device.brands.map((brand)=> <Dropdown.Item key={brand.id}>{brand.name}</Dropdown.Item>)}
+       {device.brands.map((brand)=> 
+       <Dropdown.Item onClick={device.setSelectedBrand(brand)} key={brand.id}>{brand.name}</Dropdown.Item>)}
       </Dropdown.Menu>
       </Dropdown>
       <Form.Control 
-      className= 'mt-3'
-      placeholder = 'Введите название устройства'
-      
+       Value= {name}
+       className= 'mt-3'
+       placeholder = 'Введите название устройства'
+       type='text'
+       onChange= { e=>{setnName(e.target.value)}}
       />
         <Form.Control 
-      className= 'mt-3'
-      placeholder = 'Введите стоймость устройства'
-      type='number'
+        Value= { price}
+        className= 'mt-3'
+        placeholder = 'Введите стоймость устройства'
+        type='number'
+        onChange= { e=>{setPrice(Number(e.target.value))}}
       />
         <Form.Control 
       className= 'mt-3'
