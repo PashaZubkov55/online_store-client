@@ -1,7 +1,6 @@
 import { Button, Container } from "react-bootstrap"
 import CreateType from "../components/modals/CreateType"
-import CreateDevice from "../components/modals/CreateDevice"
-import CreateBrand from "../components/modals/CreateBrand"
+
 import { useState } from "react"
 
  const Admin =  () =>{
@@ -32,9 +31,6 @@ import { useState } from "react"
                 Добавить устройство
             </Button>
             <CreateType show={typeVisible} onHide={()=>{setTypeVisible(false)}}/>
-            <CreateDevice show={deviceVisible} onHide={()=>{setdeviceVisible(false)}}/>
-            <CreateBrand show={brandVisible} onHide={()=>{setBrandVisible(false)}} />
-
         </Container>
     )
 }
