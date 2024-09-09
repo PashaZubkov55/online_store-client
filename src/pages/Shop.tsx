@@ -3,7 +3,11 @@ import { TypeBar } from "../components/TypeBar"
 import { BrandBar } from "../components/BrandBar"
 import { DeviceList } from "../components/DeviceList"
 
+
 export const Shop =  () =>{
+
+    
+
     return(
        <Container className='pt-3'>
         <Row>
