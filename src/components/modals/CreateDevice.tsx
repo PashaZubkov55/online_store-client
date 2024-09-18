@@ -88,10 +88,19 @@ console.log(e.target.files[0])
         info.map((item)=>
         <Row className='mt-4' key= {item.number}>
           <Col md={4}>
-          <Form.Control placeholder='Введите название свойства'/>
+          <Form.Control 
+          placeholder='Введите название свойства'
+          value={name}
+          onChange ={e=>setnName(Number(e.target.value))}
+          />
           </Col>
           <Col md={4}>
-          <Form.Control placeholder='Введите название свойства'/>
+          <Form.Control 
+          placeholder='Введите цену свойства'
+          value={price}
+          onChange ={e=>setPrice(e.target.value)}
+          
+          />
           </Col>
           <Col md={4}>
            <Button onClick={()=> {removeItem(item.number)}} variant={'outline-danger'} >Удалить</Button>
