@@ -3,120 +3,139 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { device } from '../../utils/ObjectStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {  Col, Row } from "react-bootstrap";
+import { fetchBrands, fetchDevices, fetchTypes } from '../../http/deviceAPI';
+import {observer} from "mobx-react-lite";
 
-function CreateDevice ({show, onHide}) {
-  const [name, setnName] = useState('')
+const CreateDevice = observer(({show, onHide}) => {
+  const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
-  const [info, setInfo] = useState([])
   const [file, setFile] = useState(null)
-  const [brand, setBrand] = useState(null)
-  const [type, setType] = useState(null)
+  const [info, setInfo] = useState([])
 
+  useEffect(() => {
+      fetchTypes().then(data => device.setTypes(data))
+      fetchBrands().then(data => device.setBrands(data))
+  }, [])
 
-const selectFile = (e) =>{
-console.log(e.target.files[0])
-} 
-
-  const addInfo= ()=>{
-    setInfo([...info, {title:'', description:' ', number:Date.now()}])
-  } 
-  const removeItem=(number)=>{
-    setInfo(info.filter(item=>item.number !== number))
+  const addInfo = () => {
+      setInfo([...info, {title: '', description: '', number: Date.now()}])
+  }
+  const removeInfo = (number) => {
+      setInfo(info.filter(i => i.number !== number))
+  }
+  const changeInfo = (key, value, number) => {
+      setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
   }
 
-  const changeInfo= (key:never, value:never, number:never)=>{
-
-      setInfo(info.map(item=>item.number === number?{...item, [key]:value}: item))
+  const selectFile = e => {
+      setFile(e.target.files[0])
   }
 
+  const addDevice = () => {
+    console.log(file)
+     
+  }
 
   return (
-    <Modal
-    show={show}
-    onHide={onHide}
-    size="lg"
-    centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Дабавить устройство
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-        <Dropdown className = 'mt-3'>
-      <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-       Выбрать тип
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-       {device.types.map((type)=> 
-       <Dropdown.Item onClick={device.setSelectedType(type)} key={type.id}>{type.name}</Dropdown.Item>)}
-      </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown className = 'mt-3'>
-      <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-       Выбрать бранд
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-       {device.brands.map((brand)=> 
-       <Dropdown.Item onClick={device.setSelectedBrand(brand)} key={brand.id}>{brand.name}</Dropdown.Item>)}
-      </Dropdown.Menu>
-      </Dropdown>
-      <Form.Control 
-       Value= {name}
-       className= 'mt-3'
-       placeholder = 'Введите название устройства'
-       type='text'
-       onChange= { e=>{setnName(e.target.value)}}
-      />
-        <Form.Control 
-        Value= { price}
-        className= 'mt-3'
-        placeholder = 'Введите стоймость устройства'
-        type='number'
-        onChange= { e=>{setPrice(Number(e.target.value))}}
-      />
-        <Form.Control 
-      className= 'mt-3'
-      type='file'
-      onChange= {selectFile}
-      />
-      <Button onClick={addInfo} className= 'mt-3' variant= 'outline-primary'>Добавить новое свойство</Button>
-      {
-        info.map((item)=>
-        <Row className='mt-4' key= {item.number}>
-          <Col md={4}>
-          <Form.Control 
-          placeholder='Введите название свойства'
-          value={name}
-          onChange ={e=>setnName(Number(e.target.value))}
-          />
-          </Col>
-          <Col md={4}>
-          <Form.Control 
-          placeholder='Введите цену свойства'
-          value={price}
-          onChange ={e=>setPrice(e.target.value)}
-          
-          />
-          </Col>
-          <Col md={4}>
-           <Button onClick={()=> {removeItem(item.number)}} variant={'outline-danger'} >Удалить</Button>
-          </Col>
-          </Row>
-          )
-      }
-        </Form>
-
-      
-      </Modal.Body>
-      <Modal.Footer>
-        <Button  onClick={onHide} variant='outline-danger'>Закрыть</Button>
-        <Button onClick={onHide} variant='outline-success'>добавить </Button>
-      </Modal.Footer>
-    </Modal>
+      <Modal
+          show={show}
+          onHide={onHide}
+          centered
+      >
+          <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                  Добавить устройство
+              </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              <Form>
+                  <Dropdown className="mt-2 mb-2">
+                      <Dropdown.Toggle>{device.selectedType.name || "Выберите тип"}</Dropdown.Toggle>
+                      <Dropdown.Menu>
+                          {device.types.map(type =>
+                              <Dropdown.Item
+                                  onClick={() => device.setSelectedType(type)}
+                                  key={type.id}
+                              >
+                                  {type.name}
+                              </Dropdown.Item>
+                          )}
+                      </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown className="mt-2 mb-2">
+                      <Dropdown.Toggle>{device.selectedBrand.name || "Выберите тип"}</Dropdown.Toggle>
+                      <Dropdown.Menu>
+                          {device.brands.map(brand =>
+                              <Dropdown.Item
+                                  onClick={() => device.setSelectedBrand(brand)}
+                                  key={brand.id}
+                              >
+                                  {brand.name}
+                              </Dropdown.Item>
+                          )}
+                      </Dropdown.Menu>
+                  </Dropdown>
+                  <Form.Control
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      className="mt-3"
+                      placeholder="Введите название устройства"
+                  />
+                  <Form.Control
+                      value={price}
+                      onChange={e => setPrice(Number(e.target.value))}
+                      className="mt-3"
+                      placeholder="Введите стоимость устройства"
+                      type="number"
+                  />
+                  <Form.Control
+                      className="mt-3"
+                      type="file"
+                      onChange={selectFile}
+                  />
+                  <hr/>
+                  <Button
+                      variant={"outline-dark"}
+                      onClick={addInfo}
+                  >
+                      Добавить новое свойство
+                  </Button>
+                  {info.map(i =>
+                      <Row className="mt-4" key={i.number}>
+                          <Col md={4}>
+                              <Form.Control
+                                  value={i.title}
+                                  onChange={(e) => changeInfo('title', e.target.value, i.number)}
+                                  placeholder="Введите название свойства"
+                              />
+                          </Col>
+                          <Col md={4}>
+                              <Form.Control
+                                  value={i.description}
+                                  onChange={(e) => changeInfo('description', e.target.value, i.number)}
+                                  placeholder="Введите описание свойства"
+                              />
+                          </Col>
+                          <Col md={4}>
+                              <Button
+                                  onClick={() => removeInfo(i.number)}
+                                  variant={"outline-danger"}
+                              >
+                                  Удалить
+                              </Button>
+                          </Col>
+                      </Row>
+                  )}
+              </Form>
+          </Modal.Body>
+          <Modal.Footer>
+              <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
+              <Button variant="outline-success" onClick={addDevice}>Добавить</Button>
+          </Modal.Footer>
+      </Modal>
   );
-}
-export default CreateDevice
+});
+
+export default CreateDevice;
