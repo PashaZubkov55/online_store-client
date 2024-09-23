@@ -32,6 +32,6 @@ export const fetchOneDevice = async(id:any)=>{
 
 
 export const createDevice = async (device: Object)=>{
-    const {data} = await $authHost.post('apo/device', device)
+    const {data} = await $authHost.post('api/device', device)
     return data
 }

@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { device } from '../../utils/ObjectStore';
 import { useEffect, useState } from 'react';
 import {  Col, Row } from "react-bootstrap";
-import { fetchBrands, fetchDevices, fetchTypes } from '../../http/deviceAPI';
+import { createDevice, fetchBrands, fetchDevices, fetchTypes } from '../../http/deviceAPI';
 import {observer} from "mobx-react-lite";
 
 const CreateDevice = observer(({show, onHide}) => {
@@ -34,8 +34,15 @@ const CreateDevice = observer(({show, onHide}) => {
   }
 
   const addDevice = () => {
-    console.log(file)
-     
+    const formData = new FormData() 
+    formData.append('name',name)
+    formData.append('price',`${price}`)
+    formData.append('img',file)
+    formData.append('info',JSON.stringify(info))
+    formData.append('typeId',device.selectedType.id)
+    formData.append('brandId',device.selectedBrand.id)
+    createDevice(formData).then(data=> onHide())
+   
   }
 
   return (
